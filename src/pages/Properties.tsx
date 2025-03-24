@@ -1,9 +1,10 @@
+
 import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PropertyCard, { PropertyType } from '@/components/PropertyCard';
 import { Button } from '@/components/ui/button';
-import { Search, Filter, X, MapPin, Home, Building, BuildingSquare, ChevronDown, Bed, Bath, Square } from 'lucide-react';
+import { Search, Filter, X, MapPin, Home, Building, LayoutGrid, ChevronDown, Bed, Bath, Square } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type FilterState = {
@@ -198,7 +199,7 @@ const Properties: React.FC = () => {
   const filterIcons = {
     House: Home,
     Apartment: Building,
-    Villa: BuildingSquare,
+    Villa: LayoutGrid,
     Condo: Building,
     Townhouse: Home
   };

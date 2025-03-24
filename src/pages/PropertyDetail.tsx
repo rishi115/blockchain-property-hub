@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { 
   MapPin, Bed, Bath, Square, Heart, Share2, ArrowLeft, 
   Calendar, CheckCircle, Home, User, ShieldCheck, Building, 
-  Clock, Wallet
+  Clock, Wallet, Phone, Mail, X
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
