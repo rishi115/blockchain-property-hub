@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -17,7 +16,60 @@ type FilterState = {
   isVerified: boolean;
 };
 
-const Properties = () => {
+interface FilterDropdownProps {
+  label: string;
+  value: string;
+  options: string[];
+  onChange: (value: string) => void;
+  icon?: React.ReactNode;
+}
+
+const FilterDropdown: React.FC<FilterDropdownProps> = ({ label, value, options, onChange, icon }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="relative">
+      <Button
+        variant="outline"
+        size="sm"
+        className={cn(
+          "rounded-full",
+          value !== options[0] ? "bg-primary/10 border-primary text-primary" : ""
+        )}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {icon}
+        {label}: {value}
+        <ChevronDown className={cn(
+          "ml-1 h-4 w-4 transition-transform",
+          isOpen ? "transform rotate-180" : ""
+        )} />
+      </Button>
+      
+      {isOpen && (
+        <div className="absolute top-full left-0 mt-1 w-40 bg-white rounded-lg shadow-lg overflow-hidden z-20 animate-scale-in">
+          {options.map((option) => (
+            <button
+              key={option}
+              className={cn(
+                "w-full px-3 py-2 text-left hover:bg-secondary transition-colors text-sm",
+                value === option ? "bg-secondary/50 font-medium" : ""
+              )}
+              onClick={() => {
+                onChange(option);
+                setIsOpen(false);
+              }}
+            >
+              {option}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const Properties: React.FC = () => {
   const [properties, setProperties] = useState<PropertyType[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -426,59 +478,6 @@ const Properties = () => {
         </div>
       </main>
       <Footer />
-    </div>
-  );
-};
-
-interface FilterDropdownProps {
-  label: string;
-  value: string;
-  options: string[];
-  onChange: (value: string) => void;
-  icon?: React.ReactNode;
-}
-
-const FilterDropdown = ({ label, value, options, onChange, icon }: FilterDropdownProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div className="relative">
-      <Button
-        variant="outline"
-        size="sm"
-        className={cn(
-          "rounded-full",
-          value !== options[0] ? "bg-primary/10 border-primary text-primary" : ""
-        )}
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {icon}
-        {label}: {value}
-        <ChevronDown className={cn(
-          "ml-1 h-4 w-4 transition-transform",
-          isOpen ? "transform rotate-180" : ""
-        )} />
-      </Button>
-      
-      {isOpen && (
-        <div className="absolute top-full left-0 mt-1 w-40 bg-white rounded-lg shadow-lg overflow-hidden z-20 animate-scale-in">
-          {options.map((option) => (
-            <button
-              key={option}
-              className={cn(
-                "w-full px-3 py-2 text-left hover:bg-secondary transition-colors text-sm",
-                value === option ? "bg-secondary/50 font-medium" : ""
-              )}
-              onClick={() => {
-                onChange(option);
-                setIsOpen(false);
-              }}
-            >
-              {option}
-            </button>
-          ))}
-        </div>
-      )}
     </div>
   );
 };
