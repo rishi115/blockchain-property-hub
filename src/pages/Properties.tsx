@@ -83,9 +83,7 @@ const Properties: React.FC = () => {
     isVerified: false
   });
 
-  // Mock data for initial render
   useEffect(() => {
-    // In a real app, this would be fetched from an API
     setProperties([
       {
         id: '1',
@@ -218,7 +216,6 @@ const Properties: React.FC = () => {
           </div>
 
           <div className="flex flex-col lg:flex-row gap-4 mb-8">
-            {/* Search Bar */}
             <div className="relative flex-1 flex items-center bg-white border border-border rounded-lg px-4 py-2.5 shadow-sm">
               <Search className="h-5 w-5 text-muted-foreground mr-2" />
               <input
@@ -238,7 +235,6 @@ const Properties: React.FC = () => {
               )}
             </div>
 
-            {/* Filter Button (Mobile) */}
             <Button
               variant="outline"
               className="lg:hidden"
@@ -248,7 +244,6 @@ const Properties: React.FC = () => {
               Filters
             </Button>
 
-            {/* Filter Pills (Desktop) */}
             <div className="hidden lg:flex items-center gap-2">
               <FilterDropdown
                 label="Type"
@@ -306,7 +301,6 @@ const Properties: React.FC = () => {
             </div>
           </div>
 
-          {/* Mobile Filters Panel */}
           {isFilterOpen && (
             <div className="lg:hidden bg-white border border-border rounded-lg p-5 mb-6 animate-fade-in">
               <div className="flex justify-between items-center mb-4">
@@ -332,7 +326,7 @@ const Properties: React.FC = () => {
                         onClick={() => setFilters({ ...filters, type: type })}
                       >
                         {type !== 'All' && filterIcons[type as keyof typeof filterIcons] ? (
-                          <filterIcons[type as keyof typeof filterIcons] className="h-3.5 w-3.5 mr-1.5" />
+                          React.createElement(filterIcons[type as keyof typeof filterIcons], { className: "h-3.5 w-3.5 mr-1.5" })
                         ) : null}
                         {type}
                       </Button>
@@ -432,7 +426,6 @@ const Properties: React.FC = () => {
             </div>
           )}
 
-          {/* Results Count */}
           <div className="flex justify-between items-center mb-6">
             <p className="text-muted-foreground">
               <span className="font-medium text-foreground">{properties.length}</span> properties found
@@ -448,14 +441,12 @@ const Properties: React.FC = () => {
             </div>
           </div>
 
-          {/* Property Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {properties.map((property) => (
               <PropertyCard key={property.id} property={property} />
             ))}
           </div>
 
-          {/* Pagination */}
           <div className="mt-12 flex justify-center">
             <div className="flex items-center space-x-2">
               <Button variant="outline" size="sm" disabled>
